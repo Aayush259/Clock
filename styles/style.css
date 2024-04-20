@@ -30,8 +30,9 @@ body{
 #App {
     width:98%;
     max-width:800px;
-    min-height:78vh;
+    min-height:70vh;
     padding:1rem;
+    padding-bottom:2rem;
     border-radius:0.5rem;
     background-color:var(--White);
 }
@@ -64,4 +65,51 @@ body{
 .date-day{
     margin-top:1rem;
     font-size:1.5rem;
+}
+
+.clock-features{
+    width:100%;
+    max-width:400px;
+    padding:0 1.2rem;
+    justify-content:space-between;
+    margin:4rem auto 0 auto;
+}
+
+button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color:transparent;
+    border:none;
+    height:40px;
+    width:40px;
+    cursor:pointer;
+    transition:all 0.1s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+button:active{
+    transform:scale(1);
+}
+
+.stopwatch-controls{
+    margin-top:1.8rem;
+    gap: 3rem;
+}
+
+.none-display{
+    display:none;
+}
+
+@media only screen and (max-width: 370px){
+    #header{
+        padding:0;
+    }
+
+    .time{
+        font-size:2.5rem;
+    }
 }
