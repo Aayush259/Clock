@@ -174,8 +174,12 @@ const StartTimer = () => {
     Minute.textContent = MinuteTimer.toString().padStart(2, '0');
     Second.textContent = SecondTimer.toString().padStart(2, '0');
 
+    InputHour.value = '';
+    InputMinute.value = '';
+    InputSecond.value = '';
+
     // Starting countdown using setInterval.
-    let SecondInterval = setInterval(() => {
+    let countdown = setInterval(() => {
         
         // Decreasing SecondTimer by 1.
         SecondTimer = SecondTimer - 1;
@@ -190,7 +194,7 @@ const StartTimer = () => {
         } else if ((SecondTimer <= 0) && (MinuteTimer < 1) && (HourTimer < 1)) {
             StopButton.classList.add('none-display');
             StartButton.classList.remove('none-display');
-            clearInterval(SecondInterval);
+            clearInterval(countdown);
         }
 
         // If SecondTimer is smaller than 0 or MinuteTimer is smaller than 0 and HourTimer is greater than 0 the reset MinuteTimer and SecondTimer to 59 and decrease HourTimer by 1.
@@ -205,7 +209,22 @@ const StartTimer = () => {
         Minute.textContent = MinuteTimer.toString().padStart(2, '0');
         Second.textContent = SecondTimer.toString().padStart(2, '0');
         
-    }, 1000)
+    }, 1000);
+
+    // Adding event listener to stop button so that when it is clicked, it stops the countdown.
+    StopButton.addEventListener('click', () => {
+        // Hiding stop button and displaying start button.
+        StopButton.classList.add('none-display');
+        StartButton.classList.remove('none-display');
+
+        // Clearing countdown interval.
+        clearInterval(countdown);
+
+        // Resetting Hour, Minute and Second on screen.
+        Hour.textContent = '00';
+        Minute.textContent = '00';
+        Second.textContent = '00';
+    })
 }
 
 function activateClock() {
