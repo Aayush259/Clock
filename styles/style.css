@@ -100,6 +100,44 @@ button:active{
     gap: 3rem;
 }
 
+.time-input{
+    gap:1.2rem;
+    margin-bottom:1.4rem;
+}
+
+.time-input > div{
+    flex-direction:column;
+    gap:5px;
+}
+
+.timer-label{
+    font-size:1.4rem;
+}
+
+.timer-input{
+    text-align:center;
+    height:40px;
+    width:60px;
+    border-radius:0.5rem;
+    border:1px solid var(--Light-gray);
+    font-size:1.3rem;
+}
+
+#timer-start-button, #timer-stop-button{
+    height:auto;
+    width:auto;
+    padding:0.5rem 1rem;
+    font-size:1.3rem;
+    border-radius:0.5rem;
+    background-color:var(--Marine-blue);
+    color:var(--White);
+    margin-bottom:1rem;
+}
+
+.timer-output-container{
+    margin-bottom:-1.5rem;
+}
+
 .none-display{
     display:none;
 }
