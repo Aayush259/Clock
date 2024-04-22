@@ -6,6 +6,9 @@ const Clock = document.getElementById('time');
 const StopWatch = document.getElementById('stopwatch');
 const Timer = document.getElementById('timer');
 
+// Declaring clockTime which will be a time interval for clock.
+var clockTime;
+
 /*
     This function updates the time in clock.
 */
@@ -116,6 +119,14 @@ const StartTimer = () => {
     const InputMinute = document.getElementById('minute-input');
     const InputSecond = document.getElementById('second-input');
 
+    // Getting alarm sound.
+    const AlarmSound = document.getElementById('alarm-sound');
+
+    // This function plays the alarm when called.
+    const PlayAlarm = () => {
+        AlarmSound.play();
+    }
+
     // Converting the string value of input fields into integer and storing in their respective variables.
     let HourTimer = parseInt(InputHour.value);
     let MinuteTimer = parseInt(InputMinute.value);
@@ -192,9 +203,15 @@ const StartTimer = () => {
             SecondTimer = 59;
             MinuteTimer -= 1;
         } else if ((SecondTimer <= 0) && (MinuteTimer < 1) && (HourTimer < 1)) {
-            StopButton.classList.add('none-display');
-            StartButton.classList.remove('none-display');
             clearInterval(countdown);
+            
+            AlarmSound.currentTime = 2.3;
+            AlarmSound.play()
+
+            AlarmSound.addEventListener('ended', PlayAlarm);
+
+            // StopButton.classList.add('none-display');
+            // StartButton.classList.remove('none-display');
         }
 
         // If SecondTimer is smaller than 0 or MinuteTimer is smaller than 0 and HourTimer is greater than 0 the reset MinuteTimer and SecondTimer to 59 and decrease HourTimer by 1.
@@ -213,6 +230,12 @@ const StartTimer = () => {
 
     // Adding event listener to stop button so that when it is clicked, it stops the countdown.
     StopButton.addEventListener('click', () => {
+
+        // Pause alarm and remove event listener from it to stop playing alarm continuously.
+        AlarmSound.pause();
+        AlarmSound.removeEventListener('ended', PlayAlarm);
+        AlarmSound
+        
         // Hiding stop button and displaying start button.
         StopButton.classList.add('none-display');
         StartButton.classList.remove('none-display');
@@ -241,10 +264,13 @@ function activateClock() {
     `;
 
     // Updating time after every second.
-    setInterval(updateTime, 1000);
+    clockTime = setInterval(updateTime, 1000);
 }
 
 function activateStopWatch() {
+
+    // Clearing clockTime when StopWatch is activated.
+    clearInterval(clockTime);
 
     // Updating clock container.
     ClockContainer.innerHTML = `
@@ -287,6 +313,9 @@ function activateStopWatch() {
 
 function activateTimer() {
     
+    // Clearing clockTime when Timer is activated.
+    clearInterval(clockTime);
+    
     ClockContainer.innerHTML = `
     <div class="time-input flex">
 
@@ -315,6 +344,8 @@ function activateTimer() {
         <span id="minute-countdown">00</span> :
         <span id="second-countdown">00</span>
     </div>
+
+    <audio id="alarm-sound" src="./Sound/Alarm.mp3" style="display: none;" controls preload="auto"></audio>
     `
 
     const StartButton = document.getElementById('timer-start-button');
