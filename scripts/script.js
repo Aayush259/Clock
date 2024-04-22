@@ -6,6 +6,8 @@ const Clock = document.getElementById('time');
 const StopWatch = document.getElementById('stopwatch');
 const Timer = document.getElementById('timer');
 
+const ActiveFeature = document.querySelector('#header > h1');
+
 // Declaring clockTime which will be a time interval for clock.
 var clockTime;
 
@@ -280,6 +282,9 @@ const StartTimer = () => {
 
 function activateClock() {
 
+    // Setting title.
+    ActiveFeature.innerText = 'Clock';
+
     // Change background of button by adding active-button class and remove background of remaining two buttons.
     Clock.classList.add('active-button');
     Timer.classList.remove('active-button');
@@ -302,6 +307,9 @@ function activateClock() {
 }
 
 function activateStopWatch() {
+
+    // Setting title.
+    ActiveFeature.innerText = 'Stopwatch';
 
     // Clearing clockTime when StopWatch is activated.
     clearInterval(clockTime);
@@ -351,6 +359,9 @@ function activateStopWatch() {
 }
 
 function activateTimer() {
+
+    // Setting title.
+    ActiveFeature.innerText = 'Timer';
     
     // Clearing clockTime when Timer is activated.
     clearInterval(clockTime);
