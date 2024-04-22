@@ -9,6 +9,20 @@ const Timer = document.getElementById('timer');
 // Declaring clockTime which will be a time interval for clock.
 var clockTime;
 
+// This function enables all clock features buttons if they are disabled.
+const EnableFeatureButtons = () => {
+    Clock.disabled = false;
+    StopWatch.disabled = false;
+    Timer.disabled = false;
+}
+
+// This function disables all clock features button if they are enabled.
+const DisableFeatureButtons = () => {
+    Clock.disabled = true;
+    StopWatch.disabled = true;
+    Timer.disabled = true;
+}
+
 /*
     This function updates the time in clock.
 */
@@ -38,6 +52,9 @@ function updateTime() {
     This function starts, pause and resets the stop watch.
 */
 const StartStopWatch = () => {
+
+    // Disable all clock features when the stopwatch is running.
+    DisableFeatureButtons();
 
     // Getting MinuteTimer, SecondTimer, MilliSecondTimer elements.
     const MinuteTimer = document.getElementById('minute-timer');
@@ -89,6 +106,9 @@ const StartStopWatch = () => {
         // Hiding pause button.
         PauseButton.classList.add('none-display');
 
+        // Enable all clock features buttons when the stopwatch is paused.
+        EnableFeatureButtons();
+
         // Clearing timer intervals.
         clearInterval(msTimer);
         clearInterval(sTimer);
@@ -101,6 +121,9 @@ const StartStopWatch = () => {
 
     // Adding event listener to reset button to reset the stopwatch.
     ResetButton.addEventListener('click', () => {
+
+        // Enable all clock features buttons when the stopwatch is reset.
+        EnableFeatureButtons();
 
         // Resetting stop watch.
         ResetButton.classList.add('none-display');
@@ -189,6 +212,9 @@ const StartTimer = () => {
     InputMinute.value = '';
     InputSecond.value = '';
 
+    // Disable all clock features buttons when the timer is running.
+    DisableFeatureButtons();
+    
     // Starting countdown using setInterval.
     let countdown = setInterval(() => {
         
@@ -234,7 +260,9 @@ const StartTimer = () => {
         // Pause alarm and remove event listener from it to stop playing alarm continuously.
         AlarmSound.pause();
         AlarmSound.removeEventListener('ended', PlayAlarm);
-        AlarmSound
+        
+        // Enable all clock features buttons when the timer is stopped.
+        EnableFeatureButtons();
         
         // Hiding stop button and displaying start button.
         StopButton.classList.add('none-display');
