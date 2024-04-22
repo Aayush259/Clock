@@ -279,6 +279,12 @@ const StartTimer = () => {
 }
 
 function activateClock() {
+
+    // Change background of button by adding active-button class and remove background of remaining two buttons.
+    Clock.classList.add('active-button');
+    Timer.classList.remove('active-button');
+    StopWatch.classList.remove('active-button');
+
     ClockContainer.innerHTML = `
     <h2 class="time">
         <span id="hour">00</span> :
@@ -299,6 +305,11 @@ function activateStopWatch() {
 
     // Clearing clockTime when StopWatch is activated.
     clearInterval(clockTime);
+
+    // Change background of button by adding active-button class and remove background of remaining two buttons.
+    StopWatch.classList.add('active-button');
+    Clock.classList.remove('active-button');
+    Timer.classList.remove('active-button');
 
     // Updating clock container.
     ClockContainer.innerHTML = `
@@ -343,6 +354,11 @@ function activateTimer() {
     
     // Clearing clockTime when Timer is activated.
     clearInterval(clockTime);
+
+    // Change background of button by adding active-button class and remove background of remaining two buttons.
+    Timer.classList.add('active-button');
+    Clock.classList.remove('active-button');
+    StopWatch.classList.remove('active-button');
     
     ClockContainer.innerHTML = `
     <div class="time-input flex">
