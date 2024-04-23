@@ -73,34 +73,23 @@ const StartStopWatch = () => {
     // Removing none-display class from pause button.
     PauseButton.classList.remove('none-display');
 
-    // Starting millisecond timer.
+    // Starting stopwatch.
     let msTimer = setInterval(() => {
 
-        // If timer has number greater than 99 then reset it to 00 else increments it by one.
-        if (MilliSecondTimer.innerHTML >= 99) {
+        // If MilliSecondTimer has number greater than 99 then reset it to 00 and increase SecondTimer by 1 else increments MilliSecondTimer by one.
+        if (parseInt(MilliSecondTimer.innerHTML) >= 99) {
             MilliSecondTimer.innerHTML = '00';
+            SecondTimer.innerHTML = (parseInt(SecondTimer.innerHTML) + 1).toString().padStart(2, '0');
         } else {
             MilliSecondTimer.innerHTML = (parseInt(MilliSecondTimer.innerHTML) + 1).toString().padStart(2, '0');
         }
-    }, 1);
 
-    // Starting second timer.
-    let sTimer = setInterval(() => {
-
-        // If secondtimer has number greater than or equal to 59, then set it to 00 else increments it by one.
-        if (SecondTimer.innerHTML >= 59) {
+        // If SecondTimer is greater than 60 then reset it to 00 and increase MinuteTimer by 1.
+        if (parseInt(SecondTimer.innerHTML) >= 60) {
             SecondTimer.innerHTML = '00';
-        } else {
-            SecondTimer.innerHTML = (parseInt(SecondTimer.innerHTML) + 1).toString().padStart(2, '0');
+            MinuteTimer.innerHTML = (parseInt(MinuteTimer.innerHTML) + 1).toString().padStart(2, '0');
         }
-    }, 1000);
-
-    // Starting minute timer.
-    let mTimer = setInterval(() => {
-
-        // Incrementing minute timer by one.
-        MinuteTimer.innerHTML = (parseInt(MinuteTimer.innerHTML) + 1).toString().padStart(2, '0');
-    }, 60000);
+    }, 10);
 
     // Adding event listener to pause button so that when it is clicked then clear all intervals.
     PauseButton.addEventListener('click', () => {
@@ -111,10 +100,8 @@ const StartStopWatch = () => {
         // Enable all clock features buttons when the stopwatch is paused.
         EnableFeatureButtons();
 
-        // Clearing timer intervals.
+        // Clearing timer interval.
         clearInterval(msTimer);
-        clearInterval(sTimer);
-        clearInterval(mTimer);
 
         // Displaying play button.
         PlayButton.classList.remove('none-display');
@@ -329,10 +316,10 @@ function activateStopWatch() {
 
     <div class="stopwatch-controls flex">
         <button id="pause" class="none-display">
-            <img src="./images/pause-icon.svg" alt="Reset" height="30">
+            <img src="./images/pause-icon.svg" alt="Pause" height="30">
         </button>
         <button id="play">
-            <img src="./images/play-icon.svg" alt="Start or Stop" height="30">
+            <img src="./images/play-icon.svg" alt="Start" height="30">
         </button>
         <button id="reset" class="none-display">
             <img src="./images/reset.svg" alt="Reset" height="30">
