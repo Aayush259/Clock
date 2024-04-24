@@ -13,8 +13,9 @@ This Clock Web App is a simple yet functional web application that displays the 
 
 - **Click on the Stopwatch Button**:
     *1. Start*: Initiates the stopwatch to track elapsed time.
-    *2. Pause*: Halts the stopwatch without resetting the elapsed time.
-    *3. Reset*: Resets the stopwatch to zero.
+    *2. Flag*: Mark a lap or split as the stopwatch runs.
+    *3. Pause*: Halts the stopwatch without resetting the elapsed time.
+    *4. Reset*: Resets the stopwatch to zero.
 
 - **Click on the Timer Button**:
     *1. Set*: Specify the desired duration in hours, minutes, and seconds for the countdown timer.
