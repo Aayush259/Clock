@@ -70,8 +70,14 @@ const StartStopWatch = () => {
     const PlayButton = document.getElementById('play');
     const ResetButton = document.getElementById('reset');
 
+    // Getting flag button.
+    const FlagButton = document.getElementById('flag');
+
     // Removing none-display class from pause button.
     PauseButton.classList.remove('none-display');
+
+    // Initializing initial time.
+    let initialTime = parseInt(`${MinuteTimer.innerText}${SecondTimer.innerText}${MilliSecondTimer.innerText}`);
 
     // Starting stopwatch.
     let msTimer = setInterval(() => {
@@ -91,11 +97,50 @@ const StartStopWatch = () => {
         }
     }, 10);
 
+    // Adding event listener to flag button to add time lap on it's click.
+    FlagButton.addEventListener('click', () => {
+
+        // Current time.
+        let currentTime = parseInt(`${MinuteTimer.innerText}${SecondTimer.innerText}${MilliSecondTimer.innerText}`);
+
+        // Calculating time lap and converting it into string with atleast 6 characters.
+        let timeLap = String(currentTime - initialTime).padStart(6, '0');
+
+        // Creating an array of timeLap to add colon and period in time lap string.
+        let timeLapArr = timeLap.split('');
+
+        timeLapArr.splice(-4, 0, ':');
+        timeLapArr.splice(-2, 0, '.');
+
+        // Updating the timeLap with colon and period.
+        timeLap = timeLapArr.join('');
+
+        // Updating initial time.
+        initialTime = currentTime;
+
+        // Getting flag container.
+        const FlagContainer = document.querySelector('.flag-container');
+
+        // Creating element for time lap.
+        const NewTimeLap = document.createElement('div');
+        NewTimeLap.classList.add('time-lap');
+        NewTimeLap.innerHTML = `+${timeLap}`;
+        
+        // Adding the new element in flag container.
+        FlagContainer.appendChild(NewTimeLap);
+
+        // Scrolling the flag container to top.
+        FlagContainer.scrollTop = FlagContainer.scrollHeight;
+
+    })
+
     // Adding event listener to pause button so that when it is clicked then clear all intervals.
     PauseButton.addEventListener('click', () => {
 
-        // Hiding pause button.
+        // Hiding pause and flag button and displaying reset button.
         PauseButton.classList.add('none-display');
+        FlagButton.classList.add('none-display');
+        ResetButton.classList.remove('none-display');
 
         // Enable all clock features buttons when the stopwatch is paused.
         EnableFeatureButtons();
@@ -113,9 +158,7 @@ const StartStopWatch = () => {
 
         // Enable all clock features buttons when the stopwatch is reset.
         EnableFeatureButtons();
-
-        // Resetting stop watch.
-        ResetButton.classList.add('none-display');
+        
         activateStopWatch();
     });
 
@@ -310,9 +353,11 @@ function activateStopWatch() {
     ClockContainer.innerHTML = `
     <div class="time">
         <span id="minute-timer">00</span> :
-        <span id="second-timer">00</span> :
+        <span id="second-timer">00</span> .
         <span id="millisecond-timer">00</span>
     </div>
+
+    <div class="flag-container"></div>
 
     <div class="stopwatch-controls flex">
         <button id="pause" class="none-display">
@@ -324,21 +369,24 @@ function activateStopWatch() {
         <button id="reset" class="none-display">
             <img src="./images/reset.svg" alt="Reset" height="30">
         </button>
+        <button id="flag" class="none-display">
+            <img src="./images/flag-icon.png" alt="Mark lap" height="30">
+        </button>
     </div>
     `;
 
-    // Getting play button and reset button.
+    // Getting play button, reset button, and flag button.
     const PlayButton = document.getElementById('play');
     const ResetButton = document.getElementById('reset');
+    const FlagButton = document.getElementById('flag');
 
     // Adding event listener to play button to start timer.
     PlayButton.addEventListener('click', () => {
 
-        // Hiding play button.
+        // Hiding play button and reset button and displaying flag button.
         PlayButton.classList.add('none-display');
-
-        // Displaying reset button.
-        ResetButton.classList.remove('none-display');
+        ResetButton.classList.add('none-display');
+        FlagButton.classList.remove('none-display');
 
         // Starting timer.
         StartStopWatch();
