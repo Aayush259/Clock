@@ -97,8 +97,9 @@ const StartStopWatch = () => {
         }
     }, 10);
 
-    // Adding event listener to flag button to add time lap on it's click.
-    FlagButton.addEventListener('click', () => {
+    // This function adds the time lap in flag container.
+    function addTimeLap() {
+        console.log('In event listener');
 
         // Current time.
         let currentTime = parseInt(`${MinuteTimer.innerText}${SecondTimer.innerText}${MilliSecondTimer.innerText}`);
@@ -193,8 +194,10 @@ const StartStopWatch = () => {
                 AllTimeLapElements[index].classList.add('red');
             })
         }
+    }
 
-    })
+    // Adding event listener to flag button to add time lap on it's click.
+    FlagButton.addEventListener('click', addTimeLap);
 
     // Adding event listener to pause button so that when it is clicked then clear all intervals.
     PauseButton.addEventListener('click', () => {
@@ -203,6 +206,9 @@ const StartStopWatch = () => {
         PauseButton.classList.add('none-display');
         FlagButton.classList.add('none-display');
         ResetButton.classList.remove('none-display');
+
+        // Removing event listener from flag button.
+        FlagButton.removeEventListener('click', addTimeLap);
 
         // Enable all clock features buttons when the stopwatch is paused.
         EnableFeatureButtons();
