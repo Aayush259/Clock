@@ -148,7 +148,7 @@ button:active{
 
 .flag-container{
     width:100%;
-    height:90px;
+    height:110px;
     margin-top:1rem;
     padding:0.5rem 1rem;
     overflow-x:hidden;
@@ -162,6 +162,14 @@ button:active{
     border-left:1px solid var(--Light-gray);
     border-right:1px solid var(--Light-gray);
     user-select:none;
+}
+
+.red{
+    color:red;
+}
+
+.blue{
+    color:rgb(0, 60, 255);
 }
 
 .none-display{

@@ -132,6 +132,68 @@ const StartStopWatch = () => {
         // Scrolling the flag container to top.
         FlagContainer.scrollTop = FlagContainer.scrollHeight;
 
+        // Getting AllTimeLapElements inside flag container.
+        const AllTimeLapElements = document.querySelectorAll('.time-lap');
+
+        // If there are more than 3 time laps then mark the color of lowest timelap with red and highest time lap with blue.
+        if (AllTimeLapElements.length >= 4) {
+
+            // Initializing empty array which will contain the numberic values of time laps from .time-lap elements.
+            let timeLapsInContainer = [];
+
+            // Getting all numeric values of time lap in timeLapsInContainer variable.
+            AllTimeLapElements.forEach(timeLapElement => {
+
+                // Array of characters of time lap value.
+                let lap = String(timeLapElement.textContent).split('');
+
+                // removing the plus, colon, and period from the array (time lap) and converting it into integer.
+                lap.splice(-3, 1);
+                lap.splice(-5, 1);
+                lap.splice(0, 1);
+                lap = parseInt(lap.join(''));
+
+                // Pushing the time lap to the timeLapsInContainer array.
+                timeLapsInContainer.push(lap);
+            })
+
+            // Getting max lap and min lap.
+            const MaxLap = Math.max(...timeLapsInContainer);
+            const MinLap = Math.min(...timeLapsInContainer);
+
+            // Initializing array for indices for max lap and min lap.
+            let MaxLapIndices = [];
+            let MinLapIndices = [];
+
+            // Updating ax lap and min lap indices.
+            for (let i = 0; i <= timeLapsInContainer.length; i++) {
+                if (timeLapsInContainer[i] === MaxLap) {
+                    MaxLapIndices.push(i);
+                }
+            }
+
+            for (let i=0; i<=timeLapsInContainer.length; i++) {
+                if (timeLapsInContainer[i] === MinLap) {
+                    MinLapIndices.push(i);
+                }
+            }
+
+            // Removing initail colors for min and max lap.
+            AllTimeLapElements.forEach(element => {
+                element.classList.remove('red');
+                element.classList.remove('blue');
+            })
+
+            // Updating the color for all min and max laps.
+            MaxLapIndices.forEach(index => {
+                AllTimeLapElements[index].classList.add('blue');
+            })
+
+            MinLapIndices.forEach(index => {
+                AllTimeLapElements[index].classList.add('red');
+            })
+        }
+
     })
 
     // Adding event listener to pause button so that when it is clicked then clear all intervals.
